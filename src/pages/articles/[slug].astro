@@ -1,6 +1,5 @@
-﻿---
+---
 import Layout from '../../layouts/Layout.astro';
-import ArticleCover from '../../components/ArticleCover.astro';
 import { articles } from '../../data/articles.generated';
 import { getCategory } from '../../data/categories';
 import { withBase, withBaseHtml } from '../../utils/paths';
@@ -39,7 +38,6 @@ const articleContent = withBaseHtml(cleanArticleContent(article.content, article
       <p>{article.summary}</p>
       <p class="meta">{formatDate(article.date)} · {article.imageCount} 张图片 · 约 {article.wordCount} 字</p>
     </div>
-    <ArticleCover article={article} variant="hero" />
   </header>
 
   <article class="article-shell">
