@@ -1,0 +1,48 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCover from '../../components/ArticleCover.astro';
+import { articles } from '../../data/articles.generated';
+import { categories, getCategory } from '../../data/categories';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { category: category.id },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const items = articles
+  .filter((article) => article.category === category.id)
+  .sort((a, b) => b.date.localeCompare(a.date));
+const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
+---
+<Layout title={`${category.name} | 小謇的足迹`} description={category.intro}>
+  <header class="page-title">
+    <p class="kicker">合集</p>
+    <h1>{category.name}</h1>
+    <p>{category.intro} 这个合集当前收录 {items.length} 篇。</p>
+  </header>
+  <section class="list-wrap">
+    <div class="article-list">
+      {items.map((article) => (
+        <a class="list-item" href={`/articles/${article.slug}/`}>
+          <ArticleCover article={article} variant="list" />
+          <div>
+            <div class="card-meta">
+              <span>{formatDate(article.date)}</span>
+              <span>{getCategory(article.category).name}</span>
+            </div>
+            <h2>{article.title}</h2>
+            <p>{article.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+
+
+
+

@@ -1,0 +1,44 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCover from '../../components/ArticleCover.astro';
+import { articles } from '../../data/articles.generated';
+import { getCategory } from '../../data/categories';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+const category = getCategory(article.category);
+const sortedAsc = [...articles].sort((a, b) => a.date.localeCompare(b.date));
+const index = sortedAsc.findIndex((item) => item.slug === article.slug);
+const previous = sortedAsc[index - 1];
+const next = sortedAsc[index + 1];
+const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
+---
+<Layout title={`${article.title} | 小謇的足迹`} description={article.summary}>
+  <header class="article-hero">
+    <div class="article-hero-text">
+      <p class="kicker">{category.name}</p>
+      <h1>{article.title}</h1>
+      <p>{article.summary}</p>
+      <p class="meta">{formatDate(article.date)} · {article.imageCount} 张图片 · 约 {article.wordCount} 字</p>
+    </div>
+    <ArticleCover article={article} variant="hero" />
+  </header>
+
+  <article class="article-shell">
+    <div class="article-content" set:html={article.content} />
+    <div class="article-footer-links">
+      <a class="origin-link" href={article.url} target="_blank" rel="noreferrer">查看公众号原文</a>
+      <a class="tag-link" href={`/categories/${category.id}/`}>{category.name}</a>
+      {previous && <a class="tag-link" href={`/articles/${previous.slug}/`}>上一篇：{previous.title}</a>}
+      {next && <a class="tag-link" href={`/articles/${next.slug}/`}>下一篇：{next.title}</a>}
+    </div>
+  </article>
+</Layout>
+
+

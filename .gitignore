@@ -1,0 +1,15 @@
+﻿node_modules/
+dist/
+.astro/
+.env
+node_modules_broken_*/
+.vercel/
+scripts/*.mjs
+!scripts/scrape-wechat.mjs
+public/images/articles/tianyi-longtermism/01.gif
+public/images/articles/tianyi-longtermism/03.gif
+public/images/articles/tianyi-longtermism/04.png
+public/images/articles/tianyi-longtermism/06.png
+public/images/articles/tianyi-longtermism/09.png
+public/images/articles/tianyi-longtermism/17.png
+public/images/articles/tianyi-longtermism/20.jpg

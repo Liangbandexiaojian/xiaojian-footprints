@@ -1,0 +1,48 @@
+﻿---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '小謇的足迹',
+  description = '行走、鸟鸣、教育与个人记录。'
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="回到首页">
+        <span class="brand-mark"><img src="/images/brand/logo-mark.png" alt="小謇的足迹 logo" /></span>
+        <span>
+          <strong>小謇的足迹</strong>
+          <small>行走、鸟鸣与爱</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-main" href="/articles/">所有文章</a>
+        <a class="nav-collection" href="/categories/travel/">旅途中的思索</a>
+        <a class="nav-collection" href="/categories/birding/">小謇观鸟</a>
+        <a class="nav-collection" href="/categories/education/">我的基础教育</a>
+        <a class="nav-main" href="/about/">关于</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>© 小謇的足迹。本站收录已发表文章，并保留原公众号入口。</p>
+    </footer>
+  </body>
+</html>
+
+

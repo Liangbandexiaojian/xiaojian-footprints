@@ -1,0 +1,37 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCover from '../../components/ArticleCover.astro';
+import { articles } from '../../data/articles.generated';
+import { getCategory } from '../../data/categories';
+
+const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
+const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
+---
+<Layout title="所有文章 | 小謇的足迹" description="小謇的足迹所有文章列表。">
+  <header class="page-title">
+    <p class="kicker">文集</p>
+    <h1>所有文章</h1>
+    <p>目前收录 {articles.length} 篇已经发表过的文章。</p>
+  </header>
+  <section class="list-wrap">
+    <div class="article-list">
+      {sorted.map((article) => (
+        <a class="list-item" href={`/articles/${article.slug}/`}>
+          <ArticleCover article={article} variant="list" />
+          <div>
+            <div class="card-meta">
+              <span>{formatDate(article.date)}</span>
+              <span>{getCategory(article.category).name}</span>
+            </div>
+            <h2>{article.title}</h2>
+            <p>{article.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+
+
+
