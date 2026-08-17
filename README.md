@@ -30,3 +30,13 @@ npm run build
 7. 点击 Deploy。
 
 发布成功后，Vercel 会给出一个 `*.vercel.app` 网址。以后只要把新修改推送到 GitHub，Vercel 会自动重新发布。
+
+## 发布到 GitHub Pages
+
+本项目也支持发布到 GitHub Pages。GitHub Actions 会在推送到 `main` 分支后自动构建，并发布到：
+
+```text
+https://liangbandexiaojian.github.io/xiaojian-footprints/
+```
+
+GitHub Pages 构建时会设置 `DEPLOY_TARGET=github-pages`，从而自动使用 `/xiaojian-footprints` 路径前缀。

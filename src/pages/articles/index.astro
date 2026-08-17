@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import ArticleCover from '../../components/ArticleCover.astro';
 import { articles } from '../../data/articles.generated';
 import { getCategory } from '../../data/categories';
+import { withBase } from '../../utils/paths';
 
 const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
@@ -16,7 +17,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
   <section class="list-wrap">
     <div class="article-list">
       {sorted.map((article) => (
-        <a class="list-item" href={`/articles/${article.slug}/`}>
+        <a class="list-item" href={withBase(`/articles/${article.slug}/`)}>
           <ArticleCover article={article} variant="list" />
           <div>
             <div class="card-meta">
@@ -31,6 +32,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
     </div>
   </section>
 </Layout>
+
 
 
 

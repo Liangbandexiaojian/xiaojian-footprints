@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import ArticleCover from '../../components/ArticleCover.astro';
 import { articles } from '../../data/articles.generated';
 import { categories, getCategory } from '../../data/categories';
+import { withBase } from '../../utils/paths';
 
 export function getStaticPaths() {
   return categories.map((category) => ({
@@ -26,7 +27,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
   <section class="list-wrap">
     <div class="article-list">
       {items.map((article) => (
-        <a class="list-item" href={`/articles/${article.slug}/`}>
+        <a class="list-item" href={withBase(`/articles/${article.slug}/`)}>
           <ArticleCover article={article} variant="list" />
           <div>
             <div class="card-meta">
@@ -41,6 +42,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
     </div>
   </section>
 </Layout>
+
 
 
 

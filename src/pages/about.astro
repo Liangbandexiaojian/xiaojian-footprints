@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/paths';
 ---
 <Layout title="关于 | 小謇的足迹" description="小謇的足迹网站说明。">
   <header class="page-title">
@@ -11,6 +12,7 @@ import Layout from '../layouts/Layout.astro';
     <p>这个网站先收录已经发表过的文章，内容包括旅途中的思索、小謇观鸟、基础教育和一些写在成长背后的想法。</p>
     <p>和公众号时间线不同，网站会更像一个长期整理的个人档案馆：文章可以按合集、年份、地点和主题重新组织，也更方便以后补充照片、索引和专题。</p>
     <p>当前版本是最小可用站点。后续可以继续加入鸟种索引、旅行地图、摄影集、文章搜索和独立域名。</p>
-    <a class="button-link primary" href="/articles/">浏览所有文章</a>
+    <a class="button-link primary" href={withBase('/articles/')}>浏览所有文章</a>
   </section>
 </Layout>
+

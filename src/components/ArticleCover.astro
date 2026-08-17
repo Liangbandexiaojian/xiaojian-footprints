@@ -1,6 +1,7 @@
 ﻿---
 import { getArticleCover } from '../data/articleCovers';
 import { getCategory } from '../data/categories';
+import { withBase } from '../utils/paths';
 
 interface Props {
   article: {
@@ -18,10 +19,11 @@ const category = getCategory(article.category);
 const loading = variant === 'hero' ? 'eager' : 'lazy';
 ---
 {cover.type === 'image' ? (
-  <img src={cover.src} alt={article.title} loading={loading} />
+  <img src={withBase(cover.src)} alt={article.title} loading={loading} />
 ) : (
   <div class:list={['quote-cover', `quote-cover-${variant}`]} aria-label={`${article.title} 文字封面`}>
     <p>{cover.quote}</p>
     <span>{cover.label || category.name}</span>
   </div>
 )}
+
