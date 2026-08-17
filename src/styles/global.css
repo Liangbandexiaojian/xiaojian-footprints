@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   color-scheme: light;
   --bg: #f6f8f4;
   --paper: #ffffff;
@@ -124,7 +124,14 @@ img {
 }
 
 .site-nav .nav-main {
+  background: rgba(255, 255, 255, 0.88);
   color: var(--ink);
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+  font-weight: 600;
+}
+
+.site-nav .nav-about {
+  color: var(--rust);
 }
 
 .site-nav a:hover,
@@ -456,6 +463,14 @@ img {
   margin: 0 0 1.1em;
 }
 
+.article-content h2 {
+  margin: 2.2em 0 1em;
+  color: var(--green);
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
 .article-content img {
   width: min(100%, 760px);
   max-height: 820px;
@@ -504,9 +519,22 @@ img {
   padding: clamp(24px, 4vw, 48px);
 }
 
+.about-panel h2 {
+  margin: 2em 0 0.55em;
+  color: var(--green);
+  font-size: 24px;
+  line-height: 1.35;
+}
+
 .about-panel p {
   margin-top: 0;
   font-size: 18px;
+}
+
+.about-signature {
+  color: var(--rust);
+  font-family: KaiTi, STKaiti, "Kaiti SC", serif;
+  font-size: 20px !important;
 }
 
 .site-footer {
@@ -564,12 +592,58 @@ img {
 }
 
 @media (max-width: 620px) {
+  .site-header {
+    gap: 16px;
+    padding: 16px 18px 18px;
+    background: rgba(246, 248, 244, 0.96);
+  }
+
   .brand {
+    width: 100%;
     min-width: 0;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand strong {
+    font-size: 22px;
   }
 
   .brand small {
     display: none;
+  }
+
+  .site-nav {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    justify-content: center;
+    min-height: 42px;
+    padding: 7px 6px;
+    text-align: center;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .site-nav .nav-collection {
+    grid-column: span 2;
+    order: 1;
+  }
+
+  .site-nav .nav-main {
+    grid-column: span 3;
+    order: 2;
+    min-height: 38px;
+    font-size: 15px;
   }
 
   .article-grid,
@@ -717,3 +791,15 @@ img {
 
 
 
+
+@media (max-width: 380px) {
+  .site-nav {
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  .site-nav a {
+    padding-right: 4px;
+    padding-left: 4px;
+  }
+}

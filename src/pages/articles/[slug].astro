@@ -19,7 +19,17 @@ const index = sortedAsc.findIndex((item) => item.slug === article.slug);
 const previous = sortedAsc[index - 1];
 const next = sortedAsc[index + 1];
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
-const articleContent = withBaseHtml(article.content);
+
+const cleanArticleContent = (content: string, slug: string) => {
+  if (slug !== 'tianyi-longtermism') return content;
+
+  return content.replace(
+    /<section>(?:(?!<img).)*?<p><b><span>序<\/span><\/b><\/p>(?:(?!<img).)*?<p><b><span>言<\/span><\/b><\/p>(?:(?!<img).)*?<\/section>(?=<section><section><img src="\/images\/articles\/tianyi-longtermism\/05\.jpg")/s,
+    '<h2>序言</h2>'
+  );
+};
+
+const articleContent = withBaseHtml(cleanArticleContent(article.content, article.slug));
 ---
 <Layout title={`${article.title} | 小謇的足迹`} description={article.summary}>
   <header class="article-hero">
@@ -42,8 +52,3 @@ const articleContent = withBaseHtml(article.content);
     </div>
   </article>
 </Layout>
-
-
-
-
-
