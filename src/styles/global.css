@@ -116,6 +116,11 @@ img {
   padding: 7px 11px;
 }
 
+.nav-collection-group {
+  display: flex;
+  gap: 8px;
+}
+
 .site-nav .nav-collection,
 .collection-button {
   border-color: rgba(47, 111, 88, 0.24);
@@ -674,14 +679,17 @@ img {
   }
 
   .site-nav .nav-collection {
-    order: 2;
     background: rgba(238, 244, 238, 0.9);
     color: var(--green);
   }
 
+  .site-nav .nav-collection-group {
+    order: 2;
+    flex: 0 0 100%;
+  }
+
   .site-nav .nav-main {
     order: 1;
-    flex: 0 0 calc(50% - 4px);
     min-height: 34px;
     background: rgba(255, 255, 255, 0.92);
     color: var(--ink);
