@@ -19,13 +19,48 @@ const previous = sortedAsc[index - 1];
 const next = sortedAsc[index + 1];
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
 
-const cleanArticleContent = (content: string, slug: string) => {
-  if (slug !== 'tianyi-longtermism') return content;
+const referenceBlock = (items) => '<section class="references"><h2>参考文献</h2>' + items.map((item) => '<p>' + item + '</p>').join('') + '</section>';
 
-  return content.replace(
-    /<section>(?:(?!<img).)*?<p><b><span>序<\/span><\/b><\/p>(?:(?!<img).)*?<p><b><span>言<\/span><\/b><\/p>(?:(?!<img).)*?<\/section>(?=<section><section><img src="\/images\/articles\/tianyi-longtermism\/05\.jpg")/s,
-    '<h2>序言</h2>'
-  );
+const cleanArticleContent = (content: string, slug: string) => {
+  let cleaned = content;
+
+  if (slug === 'tianyi-longtermism') {
+    cleaned = cleaned.replace(
+      /<section>(?:(?!<img).)*?<p><b><span>序<\/span><\/b><\/p>(?:(?!<img).)*?<p><b><span>言<\/span><\/b><\/p>(?:(?!<img).)*?<\/section>(?=<section><section><img src="\/images\/articles\/tianyi-longtermism\/05\.jpg")/s,
+      '<h2>序言</h2>'
+    );
+  }
+
+  if (slug === 'nuis-last-month-birding' && !cleaned.includes('/images/articles/nuis-last-month-birding/01.jpg')) {
+    cleaned = cleaned.replace(
+      '<p><span>灰喜鹊</span></p><section><img src="/images/articles/nuis-last-month-birding/02.png"',
+      '<p><span>灰喜鹊</span></p><section><img src="/images/articles/nuis-last-month-birding/01.jpg" alt="灰喜鹊" loading="lazy"></section><section><img src="/images/articles/nuis-last-month-birding/02.png"'
+    );
+  }
+
+  if (slug === 'xiaoshan-new-year') {
+    cleaned = cleaned.replace(
+      /<p><span><font><span><span>\[1\]许绍雄[\s\S]*?\[3\]建设党山自然编辑委员会\.建设党山自然镇[\s\S]*?<\/p>/,
+      referenceBlock([
+        '[1] 许绍雄. 我所知道的“党山许氏南大房”[C]//萧山记忆: 第十辑. [出版地不详]: [出版者不详], 2016: 3.',
+        '[2] 华夏古迹图. 许家南大房[EB/OL]. [2026-08-18].',
+        '[3] 建设党山自然编辑委员会. 建设党山自然镇[M]. [出版地不详]: [出版者不详], [出版年不详].'
+      ])
+    );
+  }
+
+  if (slug === 'zhimailing-stargazing') {
+    cleaned = cleaned.replace(
+      /<p><span><span>\[1\] 埃尔热[\s\S]*?\[3\] 罗伯特·麦基\. 故事：材质·结构·风格和银幕剧作的原理\[M\]\. 周铁东,译\. 天津: 天津人民出版社, 2014<\/span><\/span><\/p>/,
+      referenceBlock([
+        '[1] 埃尔热. 丁丁历险记: 神秘的流星: 大开本[M]. 王炳冬, 译. 北京: 中国少年儿童出版社, 2009.',
+        '[2] 特伦斯·狄金森. 夜观星空: 天文观测实践指南[M]. 谢懿, 译. 北京: 北京科学技术出版社, 2011.',
+        '[3] 罗伯特·麦基. 故事: 材质·结构·风格和银幕剧作的原理[M]. 周铁东, 译. 天津: 天津人民出版社, 2014.'
+      ])
+    );
+  }
+
+  return cleaned;
 };
 
 const articleContent = withBaseHtml(cleanArticleContent(article.content, article.slug));

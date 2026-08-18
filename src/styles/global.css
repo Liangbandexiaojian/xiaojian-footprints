@@ -479,6 +479,30 @@ img {
   background: var(--paper-soft);
 }
 
+
+.article-content .references {
+  margin-top: 2.6em;
+  padding-top: 1.2em;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.article-content .references h2 {
+  margin: 0 0 0.8em;
+  color: var(--ink);
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.article-content .references p {
+  margin: 0 0 0.55em;
+  padding-left: 2.4em;
+  text-indent: -2.4em;
+}
 .article-content a {
   color: var(--blue);
   border-bottom: 1px solid rgba(49, 95, 135, 0.35);
