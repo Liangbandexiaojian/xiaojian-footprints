@@ -681,6 +681,7 @@ img {
 
   .site-nav .nav-main {
     order: 1;
+    flex: 0 0 calc(50% - 4px);
     min-height: 34px;
     background: rgba(255, 255, 255, 0.92);
     color: var(--ink);
