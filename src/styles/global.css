@@ -203,6 +203,10 @@ img {
   white-space: normal;
 }
 
+.hero-title-line {
+  display: inline;
+}
+
 .hero-lede {
   max-width: 680px;
   margin: 24px 0 0;
@@ -1241,6 +1245,12 @@ img {
 
   .list-item {
     grid-template-columns: 160px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .hero-title-line {
+    display: block;
   }
 }
 

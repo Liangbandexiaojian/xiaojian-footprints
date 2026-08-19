@@ -9,7 +9,7 @@ const formatPlay = (play: number) => play >= 10000 ? `${(play / 10000).toFixed(1
   <header class="page-title bilibili-page-title">
     <p class="kicker">Bilibili</p>
     <h1>bilibili视频</h1>
-    <p>从中学时代的魔方、足球与班级记录，到后来的旅行、观鸟与生活切片，都收在这里。</p>
+    <p>bilibili免费云盘使用者</p>
     <a class="button-link" href={bilibiliSpaceUrl} target="_blank" rel="noreferrer">进入 B 站主页</a>
   </header>
 
@@ -24,7 +24,7 @@ const formatPlay = (play: number) => play >= 10000 ? `${(play / 10000).toFixed(1
           aria-label={`播放视频：${video.title}`}
         >
           <span class="video-card-media">
-            <img src={video.pic} alt="" loading="lazy" />
+            <img src={video.pic} alt="" loading="lazy" referrerpolicy="no-referrer" />
             <span class="video-play" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z" /></svg>
             </span>

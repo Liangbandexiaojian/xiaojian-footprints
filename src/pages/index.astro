@@ -20,7 +20,7 @@ const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', 
   <section class="hero">
     <div class="hero-copy">
       <p class="kicker">小謇的足迹</p>
-      <h1 class="hero-title">把行走、鳥鳴與愛 收進同一張地圖</h1>
+      <h1 class="hero-title"><span class="hero-title-line">把行走、鸟鸣与爱，</span><span>收进同一张地图</span></h1>
     </div>
     <div class="hero-media" aria-label="小謇的足迹首页照片">
       <img src={withBase('/images/profile/home-hero.jpg')} alt="小謇的足迹首页照片" />
@@ -113,7 +113,7 @@ const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', 
       {latestVideos.map((video) => (
         <a class="overview-video-card" href={getBilibiliUrl(video.bvid)} target="_blank" rel="noreferrer">
           <span class="video-card-media">
-            <img src={video.pic} alt="" loading="lazy" />
+            <img src={video.pic} alt="" loading="lazy" referrerpolicy="no-referrer" />
             <span class="video-play" aria-hidden="true">
               <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z" /></svg>
             </span>
