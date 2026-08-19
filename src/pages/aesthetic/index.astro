@@ -12,18 +12,18 @@ import { withBase } from '../../utils/paths';
   <section class="gallery-wrap" aria-label="摄影作品">
     <div class="gallery-grid">
       {aestheticPhotos.map((photo, index) => (
-        <figure class="photo-card">
+        <a class="photo-card" href={withBase(`/aesthetic/${photo.slug}/`)} aria-label={`查看 ${photo.location} 摄影作品`}>
           <img
             src={withBase(`/images/aesthetic/${photo.filename}`)}
             alt={`${photo.location} 摄影作品`}
             loading={index < 2 ? 'eager' : 'lazy'}
           />
-          <figcaption>
+          <span class="photo-caption">
             <span class="photo-location">{photo.location}</span>
             <span class="photo-info">{photo.dateLabel} · {photo.dimensions}</span>
-            <span class="photo-camera">{photo.camera ?? '器材未记录'}</span>
-          </figcaption>
-        </figure>
+            {photo.equipment && <span class="photo-camera">{photo.equipment}</span>}
+          </span>
+        </a>
       ))}
     </div>
   </section>

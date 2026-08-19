@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { aestheticPhotos } from '../../data/aesthetic';
+import { withBase } from '../../utils/paths';
+
+export function getStaticPaths() {
+  return aestheticPhotos.map((photo) => ({
+    params: { slug: photo.slug },
+    props: { photo }
+  }));
+}
+
+const { photo } = Astro.props;
+---
+<Layout title={`${photo.location} | 美的历程`} description={photo.quote}>
+  <header class="page-title aesthetic-page-title">
+    <p class="kicker">美的历程</p>
+    <h1>{photo.location}</h1>
+    <p>{photo.dateLabel}</p>
+    <a class="button-link back-button" href={withBase('/aesthetic/')}>← 返回美的历程</a>
+  </header>
+  <section class="photo-detail-wrap">
+    <figure class="photo-detail">
+      <img src={withBase(`/images/aesthetic/${photo.filename}`)} alt={`${photo.location} 摄影作品`} />
+      <figcaption>
+        <blockquote class="photo-quote">“{photo.quote}”</blockquote>
+        {photo.equipment && <p class="photo-equipment">{photo.equipment}</p>}
+      </figcaption>
+    </figure>
+  </section>
+</Layout>

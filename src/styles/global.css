@@ -624,6 +624,12 @@ img {
   border-radius: var(--radius);
   background: var(--paper);
   box-shadow: var(--shadow);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.photo-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--green);
 }
 
 .photo-card img {
@@ -633,7 +639,8 @@ img {
   background: var(--paper-soft);
 }
 
-.photo-card figcaption {
+.photo-caption {
+  display: block;
   padding: 14px 16px 16px;
 }
 
@@ -648,6 +655,49 @@ img {
 .photo-info,
 .photo-camera {
   display: block;
+  color: var(--muted);
+  font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.photo-detail-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(18px, 4vw, 56px) clamp(56px, 7vw, 90px);
+}
+
+.photo-detail {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.photo-detail img {
+  width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+  background: var(--paper-soft);
+}
+
+.photo-detail figcaption {
+  padding: 24px clamp(20px, 4vw, 34px) 28px;
+}
+
+.photo-quote {
+  margin: 0;
+  font-family: KaiTi, STKaiti, "Kaiti SC", serif;
+  font-size: clamp(19px, 2.5vw, 24px);
+  line-height: 1.9;
+}
+
+.photo-equipment {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
   color: var(--muted);
   font-family: "Noto Sans SC", "Microsoft YaHei", sans-serif;
   font-size: 13px;
