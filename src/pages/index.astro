@@ -3,18 +3,24 @@ import Layout from '../layouts/Layout.astro';
 import ArticleCover from '../components/ArticleCover.astro';
 import { articles } from '../data/articles.generated';
 import { getCategory } from '../data/categories';
+import { academicStudies } from '../data/academic';
+import { aestheticPhotos } from '../data/aesthetic';
+import { bilibiliVideos, getBilibiliUrl } from '../data/bilibili';
 import { withBase } from '../utils/paths';
 
 const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
-const latest = sorted.slice(0, 6);
+const latestArticles = sorted.slice(0, 3);
+const latestStudies = academicStudies.slice(0, 2);
+const latestPhotos = aestheticPhotos.slice(0, 3);
+const latestVideos = bilibiliVideos.slice(0, 3);
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
+const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(timestamp * 1000));
 ---
 <Layout title="小謇的足迹" description="行走、鸟鸣、教育与个人记录。">
   <section class="hero">
     <div class="hero-copy">
       <p class="kicker">小謇的足迹</p>
-      <h1><span>把行走、鸟鸣与爱</span><span>收进同一张地图</span></h1>
-      <p class="hero-lede">这里保存已经发表过的文章：旅途中的思索、观鸟记录，以及关于成长与基础教育的私人档案。</p>
+      <h1 class="hero-title">把行走、鳥鳴與愛 收進同一張地圖</h1>
     </div>
     <div class="hero-media" aria-label="小謇的足迹首页照片">
       <img src={withBase('/images/profile/home-hero.jpg')} alt="小謇的足迹首页照片" />
@@ -24,11 +30,12 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
   <section class="section">
     <div class="section-header">
       <div>
+        <p class="kicker">Writing</p>
         <h2>最新文章</h2>
       </div>
     </div>
-    <div class="article-grid">
-      {latest.map((article) => (
+    <div class="overview-row">
+      {latestArticles.map((article) => (
         <a class="article-card" href={withBase(`/articles/${article.slug}/`)}>
           <ArticleCover article={article} variant="card" />
           <div class="article-card-body">
@@ -44,6 +51,83 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
     </div>
     <div class="section-action">
       <a class="button-link primary" href={withBase('/articles/')}>浏览公众号文章</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Research</p>
+        <h2>最新研究</h2>
+      </div>
+    </div>
+    <div class="overview-row">
+      {latestStudies.map((study) => (
+        <a class="overview-text-card" href={withBase(`/academic/${study.slug}/`)}>
+          <span class="card-meta">
+            <span>{study.eyebrow}</span>
+            <span>{study.date}</span>
+          </span>
+          <strong>{study.title}</strong>
+          <span class="overview-card-summary">{study.summary}</span>
+          <span class="overview-card-link">查看研究</span>
+        </a>
+      ))}
+    </div>
+    <div class="section-action">
+      <a class="button-link" href={withBase('/academic/')}>查看全部研究</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Photography</p>
+        <h2>最新摄影作品</h2>
+      </div>
+    </div>
+    <div class="overview-row">
+      {latestPhotos.map((photo) => (
+        <a class="overview-photo-card" href={withBase(`/aesthetic/${photo.slug}/`)}>
+          <img src={withBase(`/images/aesthetic/${photo.filename}`)} alt={`${photo.location} 摄影作品`} loading="lazy" />
+          <span class="overview-photo-caption">
+            <strong>{photo.location}</strong>
+            <span>{photo.dateLabel}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <div class="section-action">
+      <a class="button-link" href={withBase('/aesthetic/')}>查看全部摄影作品</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Video</p>
+        <h2>最新视频</h2>
+      </div>
+    </div>
+    <div class="overview-row">
+      {latestVideos.map((video) => (
+        <a class="overview-video-card" href={getBilibiliUrl(video.bvid)} target="_blank" rel="noreferrer">
+          <span class="video-card-media">
+            <img src={video.pic} alt="" loading="lazy" />
+            <span class="video-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+            <span class="video-duration">{video.duration}</span>
+          </span>
+          <span class="overview-photo-caption">
+            <strong>{video.title}</strong>
+            <span>{formatVideoDate(video.publishedAt)}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <div class="section-action">
+      <a class="button-link" href={withBase('/bilibili/')}>查看全部视频</a>
     </div>
   </section>
 </Layout>

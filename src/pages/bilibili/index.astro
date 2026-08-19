@@ -1,0 +1,94 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { bilibiliSpaceUrl, bilibiliVideos } from '../../data/bilibili';
+
+const formatDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(timestamp * 1000));
+const formatPlay = (play: number) => play >= 10000 ? `${(play / 10000).toFixed(1)}万` : String(play);
+---
+<Layout title="bilibili视频 | 小謇的足迹" description="小謇在 bilibili 发布的视频合集。">
+  <header class="page-title bilibili-page-title">
+    <p class="kicker">Bilibili</p>
+    <h1>bilibili视频</h1>
+    <p>从中学时代的魔方、足球与班级记录，到后来的旅行、观鸟与生活切片，都收在这里。</p>
+    <a class="button-link" href={bilibiliSpaceUrl} target="_blank" rel="noreferrer">进入 B 站主页</a>
+  </header>
+
+  <section class="gallery-wrap video-page-wrap" aria-label="视频列表">
+    <div class="video-grid">
+      {bilibiliVideos.map((video) => (
+        <button
+          type="button"
+          class="video-card"
+          data-bvid={video.bvid}
+          data-title={video.title}
+          aria-label={`播放视频：${video.title}`}
+        >
+          <span class="video-card-media">
+            <img src={video.pic} alt="" loading="lazy" />
+            <span class="video-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+            <span class="video-duration">{video.duration}</span>
+          </span>
+          <span class="video-card-body">
+            <span class="video-card-title">{video.title}</span>
+            <span class="video-card-meta">{formatDate(video.publishedAt)} · {formatPlay(video.play)}次播放</span>
+          </span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <div class="video-modal" id="video-modal" aria-hidden="true">
+    <div class="video-modal-backdrop" data-close-video></div>
+    <div class="video-modal-panel" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+      <div class="video-modal-header">
+        <strong id="video-modal-title">视频播放</strong>
+        <button type="button" class="video-modal-close" data-close-video aria-label="关闭">×</button>
+      </div>
+      <iframe id="video-frame" src="" title="Bilibili 视频播放器" allow="fullscreen; autoplay; encrypted-media" allowfullscreen></iframe>
+      <div class="video-modal-footer">
+        <a id="video-external" href={bilibiliSpaceUrl} target="_blank" rel="noreferrer">在 B 站打开</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('video-modal');
+    const frame = document.getElementById('video-frame');
+    const modalTitle = document.getElementById('video-modal-title');
+    const externalLink = document.getElementById('video-external');
+
+    function openVideo(bvid, title) {
+      frame.src = 'https://player.bilibili.com/player.html?bvid=' + bvid + '&page=1&high_quality=1&danmaku=0';
+      modalTitle.textContent = title;
+      externalLink.href = 'https://www.bilibili.com/video/' + bvid;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideo() {
+      frame.src = '';
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-bvid]').forEach((card) => {
+      card.addEventListener('click', () => {
+        openVideo(card.getAttribute('data-bvid'), card.getAttribute('data-title'));
+      });
+    });
+
+    document.querySelectorAll('[data-close-video]').forEach((el) => {
+      el.addEventListener('click', closeVideo);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeVideo();
+      }
+    });
+  </script>
+</Layout>
