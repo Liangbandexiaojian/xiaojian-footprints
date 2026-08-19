@@ -7,7 +7,7 @@ import { withBase } from '../../utils/paths';
   <header class="page-title aesthetic-page-title">
     <p class="kicker">Photography</p>
     <h1>美的历程</h1>
-    <p>按时间整理的一些照片，只附拍摄地点、时间与器材信息。</p>
+    <p>小謇的摄影记录</p>
   </header>
   <section class="gallery-wrap" aria-label="摄影作品">
     <div class="gallery-grid">
@@ -20,7 +20,7 @@ import { withBase } from '../../utils/paths';
           />
           <span class="photo-caption">
             <span class="photo-location">{photo.location}</span>
-            <span class="photo-info">{photo.dateLabel} · {photo.dimensions}</span>
+            <span class="photo-info">{photo.dateLabel}</span>
             {photo.equipment && <span class="photo-camera">{photo.equipment}</span>}
           </span>
         </a>
