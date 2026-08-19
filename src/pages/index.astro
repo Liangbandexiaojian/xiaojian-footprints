@@ -10,8 +10,8 @@ import { withBase } from '../utils/paths';
 
 const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
 const latestArticles = sorted.slice(0, 3);
-const latestStudies = academicStudies.slice(0, 2);
-const latestPhotos = aestheticPhotos.slice(0, 3);
+const latestStudies = [...academicStudies].sort((a, b) => b.sortDate.localeCompare(a.sortDate)).slice(0, 2);
+const latestPhotos = [...aestheticPhotos].sort((a, b) => b.sortDate.localeCompare(a.sortDate)).slice(0, 3);
 const latestVideos = bilibiliVideos.slice(0, 3);
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
 const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(timestamp * 1000));
@@ -57,54 +57,6 @@ const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', 
   <section class="section">
     <div class="section-header">
       <div>
-        <p class="kicker">Research</p>
-        <h2>最新研究</h2>
-      </div>
-    </div>
-    <div class="overview-row">
-      {latestStudies.map((study) => (
-        <a class="overview-text-card" href={withBase(`/academic/${study.slug}/`)}>
-          <span class="card-meta">
-            <span>{study.eyebrow}</span>
-            <span>{study.date}</span>
-          </span>
-          <strong>{study.title}</strong>
-          <span class="overview-card-summary">{study.summary}</span>
-          <span class="overview-card-link">查看研究</span>
-        </a>
-      ))}
-    </div>
-    <div class="section-action">
-      <a class="button-link" href={withBase('/academic/')}>查看全部研究</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <div>
-        <p class="kicker">Photography</p>
-        <h2>最新摄影作品</h2>
-      </div>
-    </div>
-    <div class="overview-row">
-      {latestPhotos.map((photo) => (
-        <a class="overview-photo-card" href={withBase(`/aesthetic/${photo.slug}/`)}>
-          <img src={withBase(`/images/aesthetic/${photo.filename}`)} alt={`${photo.location} 摄影作品`} loading="lazy" />
-          <span class="overview-photo-caption">
-            <strong>{photo.location}</strong>
-            <span>{photo.dateLabel}</span>
-          </span>
-        </a>
-      ))}
-    </div>
-    <div class="section-action">
-      <a class="button-link" href={withBase('/aesthetic/')}>查看全部摄影作品</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <div>
         <p class="kicker">Video</p>
         <h2>最新视频</h2>
       </div>
@@ -127,7 +79,55 @@ const formatVideoDate = (timestamp: number) => new Intl.DateTimeFormat('zh-CN', 
       ))}
     </div>
     <div class="section-action">
-      <a class="button-link" href={withBase('/bilibili/')}>查看全部视频</a>
+      <a class="button-link primary" href={withBase('/bilibili/')}>查看全部视频</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Research</p>
+        <h2>最新研究</h2>
+      </div>
+    </div>
+    <div class="overview-row">
+      {latestStudies.map((study) => (
+        <a class="overview-text-card" href={withBase(`/academic/${study.slug}/`)}>
+          <span class="card-meta">
+            <span>{study.eyebrow}</span>
+            <span>{study.date}</span>
+          </span>
+          <strong>{study.title}</strong>
+          <span class="overview-card-summary">{study.summary}</span>
+          <span class="overview-card-link">查看研究</span>
+        </a>
+      ))}
+    </div>
+    <div class="section-action">
+      <a class="button-link primary" href={withBase('/academic/')}>查看全部研究</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <p class="kicker">Photography</p>
+        <h2>最新摄影作品</h2>
+      </div>
+    </div>
+    <div class="overview-row">
+      {latestPhotos.map((photo) => (
+        <a class="overview-photo-card" href={withBase(`/aesthetic/${photo.slug}/`)}>
+          <img src={withBase(`/images/aesthetic/${photo.filename}`)} alt={`${photo.location} 摄影作品`} loading="lazy" />
+          <span class="overview-photo-caption">
+            <strong>{photo.location}</strong>
+            <span>{photo.dateLabel}</span>
+          </span>
+        </a>
+      ))}
+    </div>
+    <div class="section-action">
+      <a class="button-link primary" href={withBase('/aesthetic/')}>查看全部摄影作品</a>
     </div>
   </section>
 </Layout>
