@@ -30,12 +30,8 @@ const {
         </span>
       </a>
       <nav class="site-nav" aria-label="主导航">
-        <a class="nav-main nav-all" href={withBase('/articles/')}>所有文章</a>
-        <span class="nav-collection-group">
-          <a class="nav-collection nav-travel" href={withBase('/categories/travel/')}>旅途中的思索</a>
-          <a class="nav-collection nav-birding" href={withBase('/categories/birding/')}>小謇观鸟</a>
-          <a class="nav-collection nav-education" href={withBase('/categories/education/')}>我的基础教育</a>
-        </span>
+        <a class="nav-main nav-publications" href={withBase('/articles/')}>公众号文章</a>
+        <a class="nav-main nav-academic" href={withBase('/academic/')}>学术园地</a>
         <a class="nav-main nav-about" href={withBase('/about/')}>关于</a>
       </nav>
     </header>
@@ -43,7 +39,7 @@ const {
       <slot />
     </main>
     <footer class="site-footer">
-      <p>© 小謇的足迹。本站收录已发表文章，并保留原公众号入口。</p>
+      <p>© 小謇的足迹。本站收录公众号文章、个人研究与论文，并保留原始文本入口。</p>
     </footer>
   </body>
 </html>

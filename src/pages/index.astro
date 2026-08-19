@@ -2,12 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import ArticleCover from '../components/ArticleCover.astro';
 import { articles } from '../data/articles.generated';
-import { categories, getCategory } from '../data/categories';
+import { getCategory } from '../data/categories';
 import { withBase } from '../utils/paths';
 
 const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
 const latest = sorted.slice(0, 6);
-const counts = Object.fromEntries(categories.map((category) => [category.id, articles.filter((article) => article.category === category.id).length]));
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
 ---
 <Layout title="小謇的足迹" description="行走、鸟鸣、教育与个人记录。">
@@ -44,25 +43,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
       ))}
     </div>
     <div class="section-action">
-      <a class="button-link primary" href={withBase('/articles/')}>浏览所有文章</a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <div>
-        <h2>合集</h2>
-      </div>
-    </div>
-    <div class="category-grid">
-      {categories.map((category, index) => (
-        <a class="category-card" href={withBase(`/categories/${category.id}/`)}>
-          <span class="number">{String(index + 1).padStart(2, '0')}</span>
-          <h3>{category.name}</h3>
-          <p>{category.intro}</p>
-          <p class="article-count">{counts[category.id]} 篇文章</p>
-        </a>
-      ))}
+      <a class="button-link primary" href={withBase('/articles/')}>浏览公众号文章</a>
     </div>
   </section>
 </Layout>

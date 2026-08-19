@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { academicStudies } from '../../data/academic';
+import { withBase } from '../../utils/paths';
+
+export function getStaticPaths() {
+  return academicStudies.map((study) => ({
+    params: { slug: study.slug },
+    props: { study }
+  }));
+}
+
+const { study } = Astro.props;
+---
+<Layout title={`${study.title} | 学术园地`} description={study.summary}>
+  <header class="academic-hero page-title">
+    <p class="kicker">{study.eyebrow}</p>
+    <h1>{study.title}</h1>
+    <p>{study.type} · {study.date}</p>
+  </header>
+  <div class="academic-detail">
+    <section class="academic-intro">
+      <p class="academic-lead">{study.intro}</p>
+      <div class="academic-keywords">
+        {study.keywords.map((keyword) => <span>{keyword}</span>)}
+      </div>
+    </section>
+    <section class="academic-section">
+      <h2>摘要</h2>
+      <p>{study.abstract}</p>
+    </section>
+    <section class="academic-section">
+      <h2>结构</h2>
+      <ol class="academic-outline">
+        {study.sections.map((section) => <li>{section}</li>)}
+      </ol>
+    </section>
+    <section class="academic-downloads">
+      <div>
+        <p class="kicker">全文与原稿</p>
+        <h2>保存一份完整文本</h2>
+        <p>正式全文以原始文件保留，适合下载、打印或继续引用。</p>
+      </div>
+      <div class="academic-file-links">
+        {study.files.map((file) => (
+          <a class={`button-link ${file.kind === 'primary' ? 'primary' : ''}`} href={withBase(file.path)} target={file.kind === 'primary' ? '_blank' : undefined} rel={file.kind === 'primary' ? 'noreferrer' : undefined} download={file.kind === 'secondary'}>{file.label}</a>
+        ))}
+      </div>
+    </section>
+    <a class="back-link" href={withBase('/academic/')}>← 返回学术园地</a>
+  </div>
+</Layout>

@@ -2,18 +2,32 @@
 import Layout from '../../layouts/Layout.astro';
 import ArticleCover from '../../components/ArticleCover.astro';
 import { articles } from '../../data/articles.generated';
-import { getCategory } from '../../data/categories';
+import { categories, getCategory } from '../../data/categories';
 import { withBase } from '../../utils/paths';
 
 const sorted = [...articles].sort((a, b) => b.date.localeCompare(a.date));
 const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${date}T00:00:00+08:00`));
 ---
-<Layout title="所有文章 | 小謇的足迹" description="小謇的足迹所有文章列表。">
+<Layout title="公众号文章 | 小謇的足迹" description="小謇的足迹公众号文章与三个主题合集。">
   <header class="page-title">
     <p class="kicker">文集</p>
-    <h1>所有文章</h1>
-    <p>目前收录 {articles.length} 篇已经发表过的文章。</p>
+    <h1>公众号文章</h1>
+    <p>这里收录已经发表过的文章，也可以按三个主题合集阅读。</p>
   </header>
+  <section class="collection-strip" aria-label="文章合集">
+    <div class="collection-strip-heading">
+      <span class="kicker">主题合集</span>
+      <span>{articles.length} 篇文章</span>
+    </div>
+    <div class="collection-strip-links">
+      {categories.map((category) => (
+        <a class="collection-strip-link" href={withBase(`/categories/${category.id}/`)}>
+          <strong>{category.name}</strong>
+          <span>{articles.filter((article) => article.category === category.id).length} 篇</span>
+        </a>
+      ))}
+    </div>
+  </section>
   <section class="list-wrap">
     <div class="article-list">
       {sorted.map((article) => (

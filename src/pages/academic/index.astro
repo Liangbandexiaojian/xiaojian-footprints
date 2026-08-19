@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { academicStudies } from '../../data/academic';
+import { withBase } from '../../utils/paths';
+---
+<Layout title="学术园地 | 小謇的足迹" description="小謇的研究、论文与学术写作。">
+  <header class="page-title academic-page-title">
+    <p class="kicker">Research</p>
+    <h1>学术园地</h1>
+    <p>把个人研究和论文放在这里，保留问题意识，也保留仍在生长中的思考。</p>
+  </header>
+  <section class="academic-list" aria-label="研究列表">
+    {academicStudies.map((study, index) => (
+      <article class="academic-card">
+        <div class="academic-card-index">0{index + 1}</div>
+        <div class="academic-card-main">
+          <div class="card-meta">
+            <span>{study.eyebrow}</span>
+            <span>{study.date}</span>
+          </div>
+          <h2>{study.title}</h2>
+          <p>{study.summary}</p>
+          <div class="academic-card-footer">
+            <span class="academic-type">{study.type}</span>
+            <a class="button-link academic-button" href={withBase(`/academic/${study.slug}/`)}>查看研究</a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+</Layout>
