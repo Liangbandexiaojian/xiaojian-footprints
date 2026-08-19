@@ -23,6 +23,7 @@ const formatDate = (date: string) => new Intl.DateTimeFormat('zh-CN', { year: 'n
     <p class="kicker">合集</p>
     <h1>{category.name}</h1>
     <p>{category.intro} 这个合集当前收录 {items.length} 篇。</p>
+    <a class="button-link back-button" href={withBase('/articles/')}>← 返回公众号文章</a>
   </header>
   <section class="list-wrap">
     <div class="article-list">

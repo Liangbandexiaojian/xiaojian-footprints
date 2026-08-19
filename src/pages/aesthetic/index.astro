@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { aestheticPhotos } from '../../data/aesthetic';
+import { withBase } from '../../utils/paths';
+---
+<Layout title="美的历程 | 小謇的足迹" description="小謇的摄影作品，只保留时间、地点与器材等记录信息。">
+  <header class="page-title aesthetic-page-title">
+    <p class="kicker">Photography</p>
+    <h1>美的历程</h1>
+    <p>按时间整理的一些照片，只附拍摄地点、时间与器材信息。</p>
+  </header>
+  <section class="gallery-wrap" aria-label="摄影作品">
+    <div class="gallery-grid">
+      {aestheticPhotos.map((photo, index) => (
+        <figure class="photo-card">
+          <img
+            src={withBase(`/images/aesthetic/${photo.filename}`)}
+            alt={`${photo.location} 摄影作品`}
+            loading={index < 2 ? 'eager' : 'lazy'}
+          />
+          <figcaption>
+            <span class="photo-location">{photo.location}</span>
+            <span class="photo-info">{photo.dateLabel} · {photo.dimensions}</span>
+            <span class="photo-camera">{photo.camera ?? '器材未记录'}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</Layout>

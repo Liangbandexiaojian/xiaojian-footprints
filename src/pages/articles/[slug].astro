@@ -72,6 +72,7 @@ const articleContent = withBaseHtml(cleanArticleContent(article.content, article
       <h1>{article.title}</h1>
       <p>{article.summary}</p>
       <p class="meta">{formatDate(article.date)} · {article.imageCount} 张图片 · 约 {article.wordCount} 字</p>
+      <a class="button-link back-button" href={withBase(`/categories/${category.id}/`)}>← 返回{category.name}</a>
     </div>
   </header>
 

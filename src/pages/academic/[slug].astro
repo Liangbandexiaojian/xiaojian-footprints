@@ -17,6 +17,7 @@ const { study } = Astro.props;
     <p class="kicker">{study.eyebrow}</p>
     <h1>{study.title}</h1>
     <p>{study.type} · {study.date}</p>
+    <a class="button-link back-button" href={withBase('/academic/')}>← 返回学术园地</a>
   </header>
   <div class="academic-detail">
     <section class="academic-intro">
@@ -47,6 +48,5 @@ const { study } = Astro.props;
         ))}
       </div>
     </section>
-    <a class="back-link" href={withBase('/academic/')}>← 返回学术园地</a>
   </div>
 </Layout>
